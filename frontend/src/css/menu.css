@@ -1,0 +1,9 @@
+.nav-menu {
+  display: block;
+  list-style-type: none;
+}
+
+.nav-menu-item {
+  display: inline;
+  margin: 10px;
+}
