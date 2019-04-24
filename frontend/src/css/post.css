@@ -1,0 +1,31 @@
+.posts-list {
+  display: block;
+  list-style-type: none;
+}
+
+.post-container {
+  border-style: solid;
+  border-width: 1px;
+  padding: 20px;
+  margin-right: 60px;
+  margin-left: 50px;
+  margin-bottom: 40px;
+}
+
+.post-title {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 28px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.post-details {
+  font-weight: lighter;
+  font-size: 12px;
+  font-family: 'Courier New', Courier, monospace
+}
+
+.post-body {
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif
+}

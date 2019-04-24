@@ -1,6 +1,6 @@
 import { getInitialData, getPostDataById } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
-import { receivePosts, getPostById } from '../actions/posts'
+import { receivePosts, getPostById, orderPostsByVoteScore } from '../actions/posts'
 
 export function getAllInitialData() {
   return (dispatch) => {
@@ -18,5 +18,11 @@ export function getPostByIdAction(id) {
       .then(({ post }) => {
         dispatch(getPostById(post))
       })
+  }
+}
+
+export function orderPostsByVoteScoreAction(posts, order) {
+  return (dispatch) => {
+    dispatch(orderPostsByVoteScore(posts, order))
   }
 }

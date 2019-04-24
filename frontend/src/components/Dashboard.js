@@ -2,19 +2,20 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
 
+import '../css/post.css'
+
 class Dashboard extends Component {
   render() {
     return (
-      <div>
-        <h3>Posts</h3>
-        <ul>
+      <div className='dashboard-container'>
+        <ul className='posts-list'>
           {this.props.postsIds ?
             (this.props.postsIds.map((id) => (
               <li key={id}>
                 <Post id={id} />
               </li>
             )))
-          : null}
+            : null}
         </ul>
       </div>
     )

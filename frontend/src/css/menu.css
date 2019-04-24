@@ -1,9 +1,30 @@
+.menu-container {
+  margin-top: 15px;
+}
+
+.menu-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .nav-menu {
   display: block;
   list-style-type: none;
+  margin-top: 0px;
 }
 
 .nav-menu-item {
   display: inline;
   margin: 10px;
+}
+
+.nav-half {
+  float: left;
+  width: 50%;
+}
+
+.sorter-half {
+  float: left;
+  width: 50%;
 }
