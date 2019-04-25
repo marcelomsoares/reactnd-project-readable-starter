@@ -1,6 +1,7 @@
 .posts-list {
   display: block;
   list-style-type: none;
+  padding-left: 0px;
 }
 
 .post-container {
