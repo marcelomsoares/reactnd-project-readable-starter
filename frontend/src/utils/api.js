@@ -5,9 +5,11 @@ export function getInitialData() {
   return Promise.all([
     getCategoriesFromServer(),
     getPostsFromServer(),
-  ]).then(([ categories, posts ]) => ({
+    getAuthorizationValue(),
+  ]).then(([ categories, posts, authorization ]) => ({
     categories: categories.categories,
     posts: posts,
+    authorization: authorization,
   }))
 }
 
@@ -38,4 +40,10 @@ function fetchDataFromUrl(url, method) {
       "Authorization" : AUTHORIZATION_VALUE,
     }
   })
+}
+
+function getAuthorizationValue() {
+  return {
+    authorization: AUTHORIZATION_VALUE
+  }
 }

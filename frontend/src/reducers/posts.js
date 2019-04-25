@@ -1,4 +1,4 @@
-import { RECEIVE_POSTS, GET_POST_BY_ID, ORDER_POSTS_BY_VOTE_SCORE } from '../actions/posts'
+import { RECEIVE_POSTS, GET_POST_BY_ID, ORDER_POSTS_BY_VOTE_SCORE, ADD_POST } from '../actions/posts'
 
 export default function posts(state = {}, action) {
   switch (action.type) {
@@ -16,6 +16,11 @@ export default function posts(state = {}, action) {
       return {
         ...state,
         ...action.posts,
+      }
+    case ADD_POST:
+      return {
+        ...state,
+        newPost: action.post
       }
     default:
       return state

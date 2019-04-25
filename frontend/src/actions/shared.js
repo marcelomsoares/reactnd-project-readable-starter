@@ -1,15 +1,17 @@
 import { getInitialData, getPostDataById } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
-import { receivePosts, getPostById, handleOrderPostsByVoteScore } from '../actions/posts'
+import { setAuthorization } from '../actions/authorization'
+import { receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost } from '../actions/posts'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function getAllInitialData() {
   return (dispatch) => {
     dispatch(showLoading())
     return getInitialData()
-      .then(({ categories, posts }) => {
+      .then(({ categories, posts, authorization }) => {
         dispatch(receiveCategories(categories))
         dispatch(receivePosts(posts))
+        dispatch(setAuthorization(authorization))
         dispatch(hideLoading())
       })
   }
@@ -27,5 +29,11 @@ export function getPostByIdAction(id) {
 export function handleOrderPostsByVoteScoreAction(posts, order) {  
   return (dispatch) => {
     dispatch(handleOrderPostsByVoteScore(posts, order))    
+  }
+}
+
+export function addPostAction(post) {
+  return (dispatch) => {
+    dispatch(handleAddPost(post))    
   }
 }

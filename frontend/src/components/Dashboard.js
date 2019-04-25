@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
+import NewPost from './NewPost'
 
 import '../css/post.css'
 
@@ -8,6 +9,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className='dashboard-container'>
+        <NewPost />
         <ul className='posts-list'>
           {this.props.postsIds ?
             (this.props.postsIds.map((id) => (

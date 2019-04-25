@@ -30,3 +30,31 @@
   font-weight: bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif
 }
+
+.new-post-container {  
+  text-align: center;  
+}
+
+.new-post-form textarea {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: 200px;
+  margin-bottom: 30px;
+}
+
+.new-post-form input {  
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 49%;
+  margin-bottom: 20px;
+}
+
+.new-post-form select {  
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
