@@ -49,16 +49,22 @@ class NewPost extends Component {
       author,
       category,
       timestamp,
+      voteScore: 1,
+      commentCount: 0,
+      deleted: false,
     }
 
-    console.log(post)
+    const { dispatch } = this.props
 
-    this.setState(() => ({
-      title: '',
-      body: '',
-      author: '',
-      category: ''
-    }))
+    dispatch(addPostAction(post))
+      .then(
+        this.setState(() => ({
+          title: '',
+          body: '',
+          author: '',
+          category: ''
+        }))
+      )
   }
 
   render() {
@@ -69,9 +75,10 @@ class NewPost extends Component {
         <form className='new-post-form' onSubmit={this.handleSubmit}>
           <h3>Novo Post</h3>
 
-          <input type='text' value={title} onChange={this.handleTitleChange} />
+          <input type='text' value={title} onChange={this.handleTitleChange}
+            placeholder='Título' />
 
-          <textarea value={body}
+          <textarea value={body} placeholder='Conteúdo'
             onChange={this.handleBodyChange} />
 
           <label>Categoria:</label>
@@ -94,7 +101,7 @@ class NewPost extends Component {
   }
 }
 
-function mapStatetoProps({ categories, authorization }) {  
+function mapStatetoProps({ categories, authorization }) {
   return {
     categories: Object.values(categories),
     author: authorization

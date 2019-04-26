@@ -1,4 +1,4 @@
-import { getInitialData, getPostDataById } from '../utils/api'
+import { getInitialData, getPostDataById, addPost } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
 import { receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost } from '../actions/posts'
@@ -26,14 +26,15 @@ export function getPostByIdAction(id) {
   }
 }
 
-export function handleOrderPostsByVoteScoreAction(posts, order) {  
+export function handleOrderPostsByVoteScoreAction(posts, order) {
   return (dispatch) => {
-    dispatch(handleOrderPostsByVoteScore(posts, order))    
+    dispatch(handleOrderPostsByVoteScore(posts, order))
   }
 }
 
-export function addPostAction(post) {
+export function addPostAction(p) {
   return (dispatch) => {
-    dispatch(handleAddPost(post))    
+    return addPost(p)
+      .then(dispatch(handleAddPost(p)))
   }
 }

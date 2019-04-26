@@ -6,7 +6,7 @@ export function getInitialData() {
     getCategoriesFromServer(),
     getPostsFromServer(),
     getAuthorizationValue(),
-  ]).then(([ categories, posts, authorization ]) => ({
+  ]).then(([categories, posts, authorization]) => ({
     categories: categories.categories,
     posts: posts,
     authorization: authorization,
@@ -16,7 +16,15 @@ export function getInitialData() {
 export function getPostDataById(id) {
   return Promise.all([
     getPostByIdFromServer(id),
-  ]).then(([ post ]) => ({
+  ]).then(([post]) => ({
+    post,
+  }))
+}
+
+export function addPost(p) {
+  return Promise.all([
+    savePostOnServer(p)
+  ]).then(([post]) => ({
     post,
   }))
 }
@@ -33,12 +41,28 @@ export function getPostByIdFromServer(id) {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts/").concat(id), 'GET').then(post => post.json())
 }
 
+export function savePostOnServer(p) {
+  return sendDataFromUrl(DATA_SERVER_URL.concat("/posts/"), 'POST', p)
+}
+
 function fetchDataFromUrl(url, method) {
   return fetch(url, {
     method,
     headers: {
-      "Authorization" : AUTHORIZATION_VALUE,
+      "Authorization": AUTHORIZATION_VALUE,
+      "Content-Type": "application/json",
     }
+  })
+}
+
+function sendDataFromUrl(url, method, data) {
+  return fetch(url, {
+    method,
+    headers: {
+      "Authorization": AUTHORIZATION_VALUE,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
   })
 }
 

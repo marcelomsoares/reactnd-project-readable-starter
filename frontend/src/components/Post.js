@@ -9,7 +9,7 @@ class Post extends Component {
     return (
       <div className='post-container'>
         <h3 className='post-title'>{this.props.post.title}</h3>
-        <span className='post-details'>Postado por {this.props.post.author} | {this.props.post.commentCount} comentários | {this.props.post.voteScore} pontos</span>
+        <span className='post-details'>Postado por {this.props.post.author} | {this.props.post.commentCount } comentários | {this.props.post.voteScore} pontos</span>
         <p className='post-body'>{this.props.post.body}</p>
       </div>
       )

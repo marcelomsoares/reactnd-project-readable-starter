@@ -19,12 +19,12 @@ export function getPostById(post) {
   }
 }
 
-export function orderPostsByVoteScore(posts, order) {  
+export function orderPostsByVoteScore(posts, order) {
   if (order === 'ASC') {
     posts = Object.values(posts).sort((a, b) => a.voteScore - b.voteScore)
   } else {
     posts = Object.values(posts).sort((a, b) => b.voteScore - a.voteScore)
-  }  
+  }
   return {
     type: ORDER_POSTS_BY_VOTE_SCORE,
     posts,
@@ -37,7 +37,7 @@ export function handleOrderPostsByVoteScore(posts, order) {
   }
 }
 
-function addPost (post) {
+function addPost(post) {
   return {
     type: ADD_POST,
     post,

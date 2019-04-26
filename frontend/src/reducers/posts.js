@@ -18,9 +18,10 @@ export default function posts(state = {}, action) {
         ...action.posts,
       }
     case ADD_POST:
+      let newState = Object.values(state)
+      newState.push(action.post)
       return {
-        ...state,
-        newPost: action.post
+        ...newState
       }
     default:
       return state
