@@ -1,7 +1,7 @@
 import { getInitialData, getPostDataById, addPost } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
-import { receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost } from '../actions/posts'
+import { receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost } from '../actions/posts'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function getAllInitialData() {
@@ -37,4 +37,8 @@ export function addPostAction(p) {
     return addPost(p)
       .then(dispatch(handleAddPost(p)))
   }
+}
+
+export function removePostFromState(p) {
+  return removePost(p)
 }

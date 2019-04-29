@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { addPostAction } from '../actions/shared'
+import { addPostAction, removePostFromState } from '../actions/shared'
 import { connect } from 'react-redux'
 
 import '../css/post.css'
@@ -28,6 +28,8 @@ class NewPost extends Component {
       body
     }))
   }
+
+
 
   handleSubmit = (e) => {
     e.preventDefault()
@@ -58,12 +60,19 @@ class NewPost extends Component {
 
     dispatch(addPostAction(post))
       .then(
-        this.setState(() => ({
-          title: '',
-          body: '',
-          author: '',
-          category: ''
-        }))
+        (response) => {
+          if (response.post.ok) {
+            this.setState(() => ({
+              title: '',
+              body: '',
+              author: '',
+              category: ''
+            }))
+          } else {
+            dispatch(removePostFromState(post))
+            alert('Ocorreu um erro ao cadastrar o novo post. Tente novamente mais tarde.')
+          }
+        }
       )
   }
 
