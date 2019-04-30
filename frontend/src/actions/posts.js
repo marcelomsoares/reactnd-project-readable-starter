@@ -5,6 +5,8 @@ export const GET_POST_BY_ID = 'GET_POST_BY_ID'
 export const ORDER_POSTS_BY_VOTE_SCORE = 'ORDER_POSTS_BY_VOTE_SCORE'
 export const ADD_POST = 'ADD_POST'
 export const REMOVE_POST = 'REMOVE_POST'
+export const UP_VOTE = 'UP_VOTE'
+export const DOWN_VOTE = 'DOWN_VOTE'
 
 export function receivePosts(posts) {
   return {
@@ -57,5 +59,19 @@ export function removePost(post) {
   return {
     type: REMOVE_POST,
     post,
+  }
+}
+
+export function upVote(postId) {
+  return {
+    type: UP_VOTE,
+    postId,
+  }
+}
+
+export function downVote(postId) {
+  return {
+    type: DOWN_VOTE,
+    postId,
   }
 }

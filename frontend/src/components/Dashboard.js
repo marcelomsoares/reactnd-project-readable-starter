@@ -6,6 +6,7 @@ import NewPost from './NewPost'
 import '../css/post.css'
 
 class Dashboard extends Component {
+
   render() {
     return (
       <div className='dashboard-container'>

@@ -29,20 +29,32 @@ export function addPost(p) {
   }))
 }
 
-export function getCategoriesFromServer() {
+export function voteOnPost(id, voteValue) {
+  return Promise.all([
+    sendVoteToServer(id, voteValue)
+  ]).then(([post]) => ({
+    post,
+  }))
+}
+
+function getCategoriesFromServer() {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/categories"), 'GET').then(categories => categories.json())
 }
 
-export function getPostsFromServer() {
+function getPostsFromServer() {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts"), 'GET').then(posts => posts.json())
 }
 
-export function getPostByIdFromServer(id) {
+function getPostByIdFromServer(id) {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts/").concat(id), 'GET').then(post => post.json())
 }
 
-export function savePostOnServer(p) {
-  return sendDataFromUrl(DATA_SERVER_URL.concat("/posts/"), 'POST', p)
+function savePostOnServer(p) {
+  return sendDataToUrl(DATA_SERVER_URL.concat("/posts/"), 'POST', p)
+}
+
+function sendVoteToServer(id, voteValue) {
+  return sendDataToUrl(DATA_SERVER_URL.concat("/posts/").concat(id), 'POST', voteValue)
 }
 
 function fetchDataFromUrl(url, method) {
@@ -55,7 +67,7 @@ function fetchDataFromUrl(url, method) {
   })
 }
 
-function sendDataFromUrl(url, method, data) {
+function sendDataToUrl(url, method, data) {
   return fetch(url, {
     method,
     headers: {

@@ -1,4 +1,7 @@
-import { RECEIVE_POSTS, GET_POST_BY_ID, ORDER_POSTS_BY_VOTE_SCORE, ADD_POST, REMOVE_POST } from '../actions/posts'
+import {
+  RECEIVE_POSTS, GET_POST_BY_ID, ORDER_POSTS_BY_VOTE_SCORE,
+  ADD_POST, REMOVE_POST, UP_VOTE, DOWN_VOTE
+} from '../actions/posts'
 
 export default function posts(state = {}, action) {
   switch (action.type) {
@@ -17,17 +20,31 @@ export default function posts(state = {}, action) {
         ...state,
         ...action.posts,
       }
-    case ADD_POST:      
+    case ADD_POST:
       let newState = Object.values(state)
       newState.push(action.post)
       return {
         ...newState
       }
-    case REMOVE_POST:      
+    case REMOVE_POST:
       let postRemoved = Object.values(state)
       postRemoved = postRemoved.filter(p => p.id !== action.post.id)
-      return {        
+      return {
         ...postRemoved
+      }
+    case UP_VOTE:
+      let updatedPostValue = Object.values(state)
+      updatedPostValue.filter((p) => p.id === action.postId)
+        .map((p) => p.voteScore += 1)
+      return {
+        ...updatedPostValue,
+      }
+    case DOWN_VOTE:
+      let updatedPostValueDown = Object.values(state)
+      updatedPostValueDown.filter((p) => p.id === action.postId)
+        .map((p) => p.voteScore -= 1)
+      return {
+        ...updatedPostValueDown,
       }
     default:
       return state
