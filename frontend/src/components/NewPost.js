@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { addPostAction, removePostFromState } from '../actions/shared'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import '../css/post.css'
 
@@ -10,7 +11,8 @@ class NewPost extends Component {
     title: '',
     body: '',
     author: '',
-    category: ''
+    category: '',
+    redirect: false
   }
 
   handleTitleChange = (e) => {
@@ -66,7 +68,8 @@ class NewPost extends Component {
               title: '',
               body: '',
               author: '',
-              category: ''
+              category,
+              redirect: true
             }))
           } else {
             dispatch(removePostFromState(post))
@@ -77,7 +80,11 @@ class NewPost extends Component {
   }
 
   render() {
-    const { title, body } = this.state
+    const { title, body, category, redirect } = this.state
+
+    if (redirect === true) {
+      return <Redirect to={`/${category}`} />
+    }
 
     return (
       <div className='new-post-container'>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { upVoteOnPostAction, downVoteOnPostAction } from '../actions/shared'
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa'
 
@@ -8,7 +9,7 @@ import '../css/post.css'
 class Post extends Component {
 
   state = {
-    voteScore: this.props.post.voteScore,
+    voteScore: this.props.post !== undefined ? this.props.post.voteScore : 0,
   }
 
   handleUpVote = (post) => {
@@ -52,20 +53,24 @@ class Post extends Component {
   }
 
   render() {
+    const data = new Date(this.props.post.timestamp)
     return (
       <div className='post-container'>
-        <h3 className='post-title'>{this.props.post.title}</h3>
-        <span className='post-details'>Postado por {this.props.post.author} | {this.props.post.commentCount} comentários | {this.state.voteScore} pontos
+        {this.props.post &&
+          <Link to={`/${this.props.post.category}/${this.props.post.id}`}>
+            <h3 className='post-title'>{this.props.post.title}</h3>
+            <span className='post-details'>Postado por {this.props.post.author} | às {dateFormater(data)} | {this.props.post.commentCount} comentários | {this.props.post.voteScore} pontos
           <span> </span>
-          <span title='Votar +1'>
-            <FaThumbsUp onClick={() => this.handleUpVote(this.props.post)} size='14' />
-          </span>
-          <span> </span>
-          <span title='Votar -1'>
-            <FaThumbsDown onClick={() => this.handleDownVote(this.props.post)} size='14' />
-          </span>
-        </span>
-        <p className='post-body'>{this.props.post.body}</p>
+              <span title='Votar +1'>
+                <FaThumbsUp onClick={() => this.handleUpVote(this.props.post)} size='14' />
+              </span>
+              <span> </span>
+              <span title='Votar -1'>
+                <FaThumbsDown onClick={() => this.handleDownVote(this.props.post)} size='14' />
+              </span>
+            </span>
+            <p className='post-body'>{this.props.post.body}</p>
+          </Link>}
       </div>
     )
   }
@@ -76,6 +81,10 @@ function mapStateToProps({ posts }, { id }) {
   return {
     post
   }
+}
+
+function dateFormater(date) {
+  return date.toLocaleTimeString("pt-BR").concat(' de ').concat(date.toLocaleDateString("pt-BR"))
 }
 
 export default connect(mapStateToProps)(Post)
