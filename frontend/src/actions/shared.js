@@ -1,7 +1,7 @@
-import { getInitialData, getPostDataById, addPost, voteOnPost } from '../utils/api'
+import { getInitialData, getPostDataById, addPost, voteOnPost, deletePost } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
-import { receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote, downVote } from '../actions/posts'
+import { receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote, downVote, handleDeletePost } from '../actions/posts'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function getAllInitialData() {
@@ -54,5 +54,12 @@ export function downVoteOnPostAction(id) {
   return (dispatch) => {
     return voteOnPost(id, { "option" : "downVote" })
       .then(dispatch(downVote(id)))
+  }
+}
+
+export function deletePostAction(id) {
+  return (dispatch) => {
+    return deletePost(id)
+      .then(dispatch(handleDeletePost(id)))
   }
 }

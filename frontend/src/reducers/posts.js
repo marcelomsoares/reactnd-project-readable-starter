@@ -1,6 +1,6 @@
 import {
   RECEIVE_POSTS, GET_POST_BY_ID, ORDER_POSTS_BY_VOTE_SCORE,
-  ADD_POST, REMOVE_POST, UP_VOTE, DOWN_VOTE
+  ADD_POST, REMOVE_POST, UP_VOTE, DOWN_VOTE, DELETE_POST
 } from '../actions/posts'
 
 export default function posts(state = {}, action) {
@@ -45,6 +45,12 @@ export default function posts(state = {}, action) {
         .map((p) => p.voteScore -= 1)
       return {
         ...updatedPostValueDown,
+      }
+    case DELETE_POST:
+      let remainingPosts = Object.values(state)
+      remainingPosts = remainingPosts.filter((x) => x.id !== action.postId)
+      return {
+        ...remainingPosts,
       }
     default:
       return state

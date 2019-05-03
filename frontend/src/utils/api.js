@@ -8,7 +8,7 @@ export function getInitialData() {
     getAuthorizationValue(),
   ]).then(([categories, posts, authorization]) => ({
     categories: categories.categories,
-    posts: posts,
+    posts: posts.sort((a, b) => b.voteScore - a.voteScore),
     authorization: authorization,
   }))
 }
@@ -37,6 +37,14 @@ export function voteOnPost(id, voteValue) {
   }))
 }
 
+export function deletePost(postId) {
+  return Promise.all([
+    markPostAsDeletedOnServer(postId)
+  ]).then(([post]) => ({
+    post,
+  }))
+}
+
 function getCategoriesFromServer() {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/categories"), 'GET').then(categories => categories.json())
 }
@@ -55,6 +63,10 @@ function savePostOnServer(p) {
 
 function sendVoteToServer(id, voteValue) {
   return sendDataToUrl(DATA_SERVER_URL.concat("/posts/").concat(id), 'POST', voteValue)
+}
+
+function markPostAsDeletedOnServer(id) {
+  return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts/").concat(id), 'DELETE').then(post => post.json())
 }
 
 function fetchDataFromUrl(url, method) {

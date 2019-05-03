@@ -19,7 +19,7 @@ class Menu extends Component {
             {this.props.categories
               ? (this.props.categories.map((category) => (
                 <li key={category.path}>
-                  <NavLink to={category.path} exact className='nav-menu-item'>
+                  <NavLink to={`/${category.path}`} exact className='nav-menu-item'>
                     {category.name}
                   </NavLink>
                 </li>

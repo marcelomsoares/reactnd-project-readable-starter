@@ -19,7 +19,7 @@ class Post extends Component {
     dispatch(upVoteOnPostAction(post.id))
       .then(
         (response) => {
-          if (response.post.ok) {
+          if (response.post.ok === true) {
             this.setState(() => ({
               voteScore: post.voteScore
             }))
@@ -57,9 +57,13 @@ class Post extends Component {
     return (
       <div className='post-container'>
         {this.props.post &&
-          <Link to={`/${this.props.post.category}/${this.props.post.id}`}>
-            <h3 className='post-title'>{this.props.post.title}</h3>
-            <span className='post-details'>Postado por {this.props.post.author} | às {dateFormater(data)} | {this.props.post.commentCount} comentários | {this.props.post.voteScore} pontos
+          <div>
+            <h3 className='post-title'>
+              <Link to={`/${this.props.post.category}/${this.props.post.id}`}>
+                {this.props.post.title}
+              </Link>
+            </h3>
+            <span className='post-details'>Postado por {this.props.post.author} | Ã s {dateFormater(data)} | {this.props.post.commentCount} comentÃ¡rios | {this.props.post.voteScore} pontos
           <span> </span>
               <span title='Votar +1'>
                 <FaThumbsUp onClick={() => this.handleUpVote(this.props.post)} size='14' />
@@ -70,7 +74,7 @@ class Post extends Component {
               </span>
             </span>
             <p className='post-body'>{this.props.post.body}</p>
-          </Link>}
+          </div>}
       </div>
     )
   }
@@ -79,7 +83,7 @@ class Post extends Component {
 function mapStateToProps({ posts }, { id }) {
   const post = Object.values(posts).find(p => p.id === id)
   return {
-    post
+    post: post === undefined ? {} : post
   }
 }
 

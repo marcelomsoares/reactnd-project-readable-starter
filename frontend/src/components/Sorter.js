@@ -5,7 +5,7 @@ import { FaSortNumericUp, FaSortNumericDown } from 'react-icons/fa'
 
 class Sorter extends Component {
   orderAsc = (e, order) => {
-    e.preventDefault()    
+    e.preventDefault()
     const { dispatch, posts} = this.props
     dispatch(handleOrderPostsByVoteScoreAction(posts, order))
   }
@@ -13,7 +13,7 @@ class Sorter extends Component {
   render() {
     return (
       <div>
-        <span>Ordenar por pontuação: </span>        
+        <span>Ordenar por pontuação: </span>
         <button onClick={(e) => this.orderAsc(e, 'ASC')}>
           Crescente <FaSortNumericDown />
         </button>

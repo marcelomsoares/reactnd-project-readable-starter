@@ -63,7 +63,7 @@ class NewPost extends Component {
     dispatch(addPostAction(post))
       .then(
         (response) => {
-          if (response.post.ok) {
+          if (response.post.ok === true) {
             this.setState(() => ({
               title: '',
               body: '',
