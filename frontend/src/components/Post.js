@@ -63,7 +63,7 @@ class Post extends Component {
                 {this.props.post.title}
               </Link>
             </h3>
-            <span className='post-details'>Postado por {this.props.post.author} | Ã s {dateFormater(data)} | {this.props.post.commentCount} comentÃ¡rios | {this.props.post.voteScore} pontos
+            <span className='post-details'>Postado por {this.props.post.author} | às {dateFormater(data)} | {this.props.post.commentCount} comentários | {this.props.post.voteScore} pontos
           <span> </span>
               <span title='Votar +1'>
                 <FaThumbsUp onClick={() => this.handleUpVote(this.props.post)} size='14' />

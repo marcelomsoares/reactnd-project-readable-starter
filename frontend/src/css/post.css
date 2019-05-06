@@ -63,3 +63,13 @@
   margin-right: auto;
   margin-bottom: 20px;
 }
+
+.form-post-page {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 50px;
+}
+
+.form-post-page button{
+  margin-right: 20px;
+}
