@@ -1,10 +1,12 @@
-import { getInitialData, getPostDataById, addPost, voteOnPost, handleDeletePost, handleEditPost, handleGetPostsByCategory } from '../utils/api'
+import { getInitialData, getPostDataById, addPost, voteOnPost, handleDeletePost,
+   handleEditPost, handleGetPostsByCategory, handleGetPostComments } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
 import {
   receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote,
   downVote, deletePost, editPost, filterByCategory, postsToState
 } from '../actions/posts'
+import { getPostComments } from '../actions/comments'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function getAllInitialData() {
@@ -82,5 +84,12 @@ export function filterPostsByCategoryAction(category) {
   return (dispatch) => {
     return handleGetPostsByCategory(category)
       .then(dispatch(filterByCategory(category)))
+  }
+}
+
+export function getPostCommentsAction(p) {
+  return (dispatch) => {
+    return handleGetPostComments(p)
+      .then((response) => dispatch(getPostComments(response.comments)))
   }
 }

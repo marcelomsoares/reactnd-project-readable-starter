@@ -62,12 +62,24 @@ export function handleGetPostsByCategory(category) {
   )
 }
 
+export function handleGetPostComments(p) {
+  return Promise.all([
+    getPostCommentsFromServer(p)
+  ]).then(([comments]) => ({
+    comments,
+  }))
+}
+
 function getCategoriesFromServer() {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/categories"), 'GET').then(categories => categories.json())
 }
 
 function getPostsFromServer() {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts"), 'GET').then(posts => posts.json())
+}
+
+function getPostCommentsFromServer(p) {
+  return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts/".concat(p.id).concat("/comments")), 'GET').then(comments => comments.json())
 }
 
 function getPostsFromServerByCategory(category) {

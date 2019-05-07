@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
 import EditPost from './EditPost'
-import { deletePostAction } from '../actions/shared'
+import Comment from './Comment'
+import { deletePostAction, getPostCommentsAction } from '../actions/shared'
 import { Redirect } from 'react-router-dom'
 
 import '../css/post.css'
@@ -12,6 +13,20 @@ class PostPage extends Component {
   state = {
     redirect: false,
     editing: false,
+    comments: null,
+  }
+
+  handleGetPostComments = () => {
+    const { dispatch } = this.props
+
+    dispatch(getPostCommentsAction(this.props.post))
+      .then(
+        (response) => {
+          this.setState(() => ({
+            comments: response.comments,
+          }))
+        }
+      )
   }
 
   handlePostDelete = (postId) => {
@@ -44,6 +59,10 @@ class PostPage extends Component {
 
   render() {
 
+    if (this.props.post !== undefined && this.state.comments === null) {
+      this.handleGetPostComments(this.props.post)
+    }
+
     if (this.state.redirect === true) {
       return <Redirect to='/' />
     }
@@ -62,6 +81,17 @@ class PostPage extends Component {
               </button>
             </form>
             <Post id={this.props.id} />
+            <div>
+              <ul className='comments-list'>
+                {this.state.comments && (
+                  this.state.comments.map((comment) => (
+                    <li key={comment.id}>
+                      <Comment comment={comment} />
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
           </div>
         )}
 
@@ -75,13 +105,14 @@ class PostPage extends Component {
   }
 }
 
-function mapStateToProps({ posts, post }, props) {
+function mapStateToProps({ posts, comments }, props) {
   const { id, category } = props.match.params
   return {
     id,
     posts,
-    post,
+    post: Object.values(posts).find(p => p.id === id),
     category,
+    comments,
   }
 }
 

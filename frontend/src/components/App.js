@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-//import { getAllInitialData } from '../actions/shared'
+import { getAllInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
 import Menu from './Menu'
 import PostPage from './PostPage'
@@ -12,9 +12,11 @@ import LoadingBar from 'react-redux-loading'
 
 class App extends Component {
 
-  // componentDidMount() {
-  //   this.props.dispatch(getAllInitialData())
-  // }
+  componentDidMount() {
+    // código mantido para ser possivel acessar um post através da url /:categoria/postId
+    this.props.dispatch(getAllInitialData())
+    // TODO: trocar essa chamada por uma chamada da api de busca de post por id
+  }
 
   render() {
     return (
