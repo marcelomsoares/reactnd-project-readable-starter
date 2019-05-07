@@ -1,7 +1,10 @@
-import { getInitialData, getPostDataById, addPost, voteOnPost, handleDeletePost, handleEditPost } from '../utils/api'
+import { getInitialData, getPostDataById, addPost, voteOnPost, handleDeletePost, handleEditPost, handleGetPostsByCategory } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
-import { receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote, downVote, deletePost, editPost } from '../actions/posts'
+import {
+  receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote,
+  downVote, deletePost, editPost, filterByCategory, postsToState
+} from '../actions/posts'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function getAllInitialData() {
@@ -43,16 +46,20 @@ export function removePostFromState(p) {
   return removePost(p)
 }
 
+export function postsToStateAction(posts) {
+  return postsToState(posts)
+}
+
 export function upVoteOnPostAction(id) {
   return (dispatch) => {
-    return voteOnPost(id, { "option" : "upVote" })
+    return voteOnPost(id, { "option": "upVote" })
       .then(dispatch(upVote(id)))
   }
 }
 
 export function downVoteOnPostAction(id) {
   return (dispatch) => {
-    return voteOnPost(id, { "option" : "downVote" })
+    return voteOnPost(id, { "option": "downVote" })
       .then(dispatch(downVote(id)))
   }
 }
@@ -68,5 +75,12 @@ export function editPostAction(post) {
   return (dispatch) => {
     return handleEditPost(post)
       .then(dispatch(editPost(post)))
+  }
+}
+
+export function filterPostsByCategoryAction(category) {
+  return (dispatch) => {
+    return handleGetPostsByCategory(category)
+      .then(dispatch(filterByCategory(category)))
   }
 }

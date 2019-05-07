@@ -1,19 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { getAllInitialData } from '../actions/shared'
+//import { getAllInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
 import Menu from './Menu'
 import PostPage from './PostPage'
 import NewPost from './NewPost'
+import CategoryPosts from './CategoryPosts'
 
 import LoadingBar from 'react-redux-loading'
 
 class App extends Component {
 
-  componentDidMount() {
-    this.props.dispatch(getAllInitialData())
-  }
+  // componentDidMount() {
+  //   this.props.dispatch(getAllInitialData())
+  // }
 
   render() {
     return (
@@ -26,8 +27,9 @@ class App extends Component {
               : (<div>
                 <Menu />
                 <Route path='/' exact component={Dashboard} />
-                <Route path='/newPost' exact component={NewPost} />
-                <Route path='/:category/:id' component={PostPage} />
+                <Route path='/newPost/' exact component={NewPost} />
+                <Route path='/:category/' exact component={CategoryPosts} />
+                <Route path='/:category/:id' exact component={PostPage} />
               </div>)
             }
           </div>

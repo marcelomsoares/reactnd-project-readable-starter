@@ -53,12 +53,25 @@ export function handleEditPost(post) {
   }))
 }
 
+export function handleGetPostsByCategory(category) {
+  return Promise.all([
+    getPostsFromServerByCategory(category)
+  ]).then(([posts]) => ({
+    posts,
+  })
+  )
+}
+
 function getCategoriesFromServer() {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/categories"), 'GET').then(categories => categories.json())
 }
 
 function getPostsFromServer() {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts"), 'GET').then(posts => posts.json())
+}
+
+function getPostsFromServerByCategory(category) {
+  return fetchDataFromUrl(DATA_SERVER_URL.concat("/").concat(category).concat("/posts"), 'GET').then(posts => posts.json())
 }
 
 function getPostByIdFromServer(id) {

@@ -1,7 +1,7 @@
 import {
   RECEIVE_POSTS, GET_POST_BY_ID, ORDER_POSTS_BY_VOTE_SCORE,
   ADD_POST, REMOVE_POST, UP_VOTE, DOWN_VOTE, DELETE_POST,
-  EDIT_POST
+  EDIT_POST, FILTER_BY_CATEGORY, POSTS_TO_STATE
 } from '../actions/posts'
 
 export default function posts(state = {}, action) {
@@ -59,6 +59,14 @@ export default function posts(state = {}, action) {
       editedPosts.push(action.post)
       return {
         ...editedPosts,
+      }
+    case FILTER_BY_CATEGORY:
+      return {
+        ...state,
+      }
+    case POSTS_TO_STATE:
+      return {
+        ...action.posts
       }
     default:
       return state
