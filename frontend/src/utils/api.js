@@ -37,9 +37,17 @@ export function voteOnPost(id, voteValue) {
   }))
 }
 
-export function deletePost(postId) {
+export function handleDeletePost(postId) {
   return Promise.all([
     markPostAsDeletedOnServer(postId)
+  ]).then(([post]) => ({
+    post,
+  }))
+}
+
+export function handleEditPost(post) {
+  return Promise.all([
+    editPostOnServer(post)
   ]).then(([post]) => ({
     post,
   }))
@@ -67,6 +75,10 @@ function sendVoteToServer(id, voteValue) {
 
 function markPostAsDeletedOnServer(id) {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts/").concat(id), 'DELETE').then(post => post.json())
+}
+
+function editPostOnServer(p) {
+  return sendDataToUrl(DATA_SERVER_URL.concat("/posts/".concat(p.id)), 'PUT', p)
 }
 
 function fetchDataFromUrl(url, method) {

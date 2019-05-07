@@ -8,6 +8,7 @@ export const REMOVE_POST = 'REMOVE_POST'
 export const UP_VOTE = 'UP_VOTE'
 export const DOWN_VOTE = 'DOWN_VOTE'
 export const DELETE_POST = 'DELETE_POST'
+export const EDIT_POST = 'EDIT_POST'
 
 export function receivePosts(posts) {
   return {
@@ -77,9 +78,16 @@ export function downVote(postId) {
   }
 }
 
-export function handleDeletePost(postId) {
+export function deletePost(postId) {
   return {
     type: DELETE_POST,
     postId,
+  }
+}
+
+export function editPost(post) {
+  return {
+    type: EDIT_POST,
+    post,
   }
 }

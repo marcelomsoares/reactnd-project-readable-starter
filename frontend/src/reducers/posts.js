@@ -1,6 +1,7 @@
 import {
   RECEIVE_POSTS, GET_POST_BY_ID, ORDER_POSTS_BY_VOTE_SCORE,
-  ADD_POST, REMOVE_POST, UP_VOTE, DOWN_VOTE, DELETE_POST
+  ADD_POST, REMOVE_POST, UP_VOTE, DOWN_VOTE, DELETE_POST,
+  EDIT_POST
 } from '../actions/posts'
 
 export default function posts(state = {}, action) {
@@ -51,6 +52,13 @@ export default function posts(state = {}, action) {
       remainingPosts = remainingPosts.filter((x) => x.id !== action.postId)
       return {
         ...remainingPosts,
+      }
+    case EDIT_POST:
+      let editedPosts = Object.values(state)
+      editedPosts = editedPosts.filter(p => p.id !== action.post.id)
+      editedPosts.push(action.post)
+      return {
+        ...editedPosts,
       }
     default:
       return state

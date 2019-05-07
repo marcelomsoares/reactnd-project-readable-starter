@@ -67,7 +67,7 @@ class PostPage extends Component {
 
         {this.state.editing === true && (
           <div>
-            <EditPost id={this.props.id} />
+            <EditPost id={this.props.id} handleCancel={this.hideEditPostForm} />
           </div>
         )}
       </div>

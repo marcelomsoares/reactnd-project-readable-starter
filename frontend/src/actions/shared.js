@@ -1,7 +1,7 @@
-import { getInitialData, getPostDataById, addPost, voteOnPost, deletePost } from '../utils/api'
+import { getInitialData, getPostDataById, addPost, voteOnPost, handleDeletePost, handleEditPost } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
-import { receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote, downVote, handleDeletePost } from '../actions/posts'
+import { receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote, downVote, deletePost, editPost } from '../actions/posts'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function getAllInitialData() {
@@ -59,7 +59,14 @@ export function downVoteOnPostAction(id) {
 
 export function deletePostAction(id) {
   return (dispatch) => {
-    return deletePost(id)
-      .then(dispatch(handleDeletePost(id)))
+    return handleDeletePost(id)
+      .then(dispatch(deletePost(id)))
+  }
+}
+
+export function editPostAction(post) {
+  return (dispatch) => {
+    return handleEditPost(post)
+      .then(dispatch(editPost(post)))
   }
 }

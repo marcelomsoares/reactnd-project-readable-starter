@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { editPostAction, addPostAction } from '../actions/shared'
 import { connect } from 'react-redux'
 
 import '../css/post.css'
@@ -36,7 +37,27 @@ class EditPost extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
-    console.log(`editar post ${this.props.id}`)
+    const { title, body } = this.state
+
+    const { post, dispatch } = this.props
+
+    let editedPost = {
+      id: this.props.post.id,
+      title,
+      body,
+    }
+
+    dispatch(editPostAction(editedPost))
+      .then(
+        (response) => {
+          if (response.post.ok === true) {
+            this.props.handleCancel()
+          } else {
+            dispatch(addPostAction(post))
+            alert('Ocorreu um erro ao editar o post. Tente novamente mais tarde.')
+          }
+        })
+
   }
 
   render() {
@@ -59,16 +80,22 @@ class EditPost extends Component {
             disabled={body === '' || title === ''}>
             Editar
           </button>
+
+          <button onClick={this.props.handleCancel}
+            type='button'>
+            Cancelar
+          </button>
         </form>
       </div>
     )
   }
 }
 
-function mapStateToProps({ posts }, { id }) {
+function mapStateToProps({ posts }, { id, handleCancel }) {
   const post = Object.values(posts).find(p => p.id === id)
   return {
     post,
+    handleCancel,
   }
 }
 
