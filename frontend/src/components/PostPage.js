@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Post from './Post'
 import EditPost from './EditPost'
 import Comment from './Comment'
+import NewComment from './NewComment'
 import { deletePostAction, getPostCommentsAction } from '../actions/shared'
 import { Redirect } from 'react-router-dom'
 
@@ -84,6 +85,7 @@ class PostPage extends Component {
             </form>
             <Post id={this.props.id} />
             <div>
+              <NewComment id={this.props.id} />
               <ul className='comments-list'>
                 {this.props.comments && (
                   this.props.comments.map((comment) => (
@@ -114,7 +116,7 @@ function mapStateToProps({ posts, comments }, props) {
     posts,
     post: Object.values(posts).find(p => p.id === id),
     category,
-    comments: Object.values(comments),
+    comments: Object.values(comments).sort((a, b) => b.voteScore - a.voteScore),
   }
 }
 

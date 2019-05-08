@@ -32,9 +32,9 @@ export function deleteComment(commentId) {
   }
 }
 
-export function addComment(commentId) {
+export function addComment(comment) {
   return {
     type: ADD_COMMENT,
-    commentId,
+    comment,
   }
 }

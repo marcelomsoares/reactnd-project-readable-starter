@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { upVoteOnCommentAction, downVoteOnCommentAction, deleteCommentAction } from '../actions/shared'
 import { FaThumbsUp, FaThumbsDown, FaPencilAlt, FaTrash } from 'react-icons/fa'
 
-import '../css/comments.css'
+import '../css/comment.css'
 
 class Comment extends Component {
 

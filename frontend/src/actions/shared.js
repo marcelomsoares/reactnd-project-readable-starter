@@ -1,6 +1,7 @@
 import {
   getInitialData, getPostDataById, addPost, voteOnPost, handleDeletePost,
-  handleEditPost, handleGetPostsByCategory, handleGetPostComments, voteOnComment, handleDeleteComment
+  handleEditPost, handleGetPostsByCategory, handleGetPostComments, voteOnComment,
+  handleDeleteComment, handleAddComment
 } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
@@ -8,7 +9,7 @@ import {
   receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote,
   downVote, deletePost, editPost, filterByCategory, postsToState
 } from '../actions/posts'
-import { getPostComments, upVoteComment, downVoteComment, deleteComment } from '../actions/comments'
+import { getPostComments, upVoteComment, downVoteComment, deleteComment, addComment } from '../actions/comments'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function getAllInitialData() {
@@ -46,8 +47,19 @@ export function addPostAction(p) {
   }
 }
 
+export function addCommentAction(c) {
+  return (dispatch) => {
+    return handleAddComment(c)
+      .then(dispatch(addComment(c)))
+  }
+}
+
 export function removePostFromState(p) {
   return removePost(p)
+}
+
+export function removeCommentFromState(c) {
+  return deleteComment(c.id)
 }
 
 export function postsToStateAction(posts) {

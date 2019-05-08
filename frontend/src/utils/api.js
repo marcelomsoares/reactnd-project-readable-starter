@@ -29,6 +29,14 @@ export function addPost(p) {
   }))
 }
 
+export function handleAddComment(c) {
+  return Promise.all([
+    saveCommentOnServer(c)
+  ]).then(([comment]) => ({
+    comment,
+  }))
+}
+
 export function voteOnPost(id, voteValue) {
   return Promise.all([
     sendVoteToServer(id, voteValue)
@@ -82,7 +90,7 @@ export function handleGetPostComments(p) {
   return Promise.all([
     getPostCommentsFromServer(p)
   ]).then(([comments]) => ({
-    comments: comments.sort((a, b) => b.voteScore - a.voteScore),
+    comments,
   }))
 }
 
@@ -108,6 +116,10 @@ function getPostByIdFromServer(id) {
 
 function savePostOnServer(p) {
   return sendDataToUrl(DATA_SERVER_URL.concat("/posts/"), 'POST', p)
+}
+
+function saveCommentOnServer(c) {
+  return sendDataToUrl(DATA_SERVER_URL.concat("/comments/"), 'POST', c)
 }
 
 function sendVoteToServer(id, voteValue) {
