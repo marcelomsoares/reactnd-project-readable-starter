@@ -13,7 +13,8 @@ class PostPage extends Component {
   state = {
     redirect: false,
     editing: false,
-    comments: null,
+    getComments: true,
+    //comments: null,
   }
 
   handleGetPostComments = () => {
@@ -24,6 +25,7 @@ class PostPage extends Component {
         (response) => {
           this.setState(() => ({
             comments: response.comments,
+            getComments: false,
           }))
         }
       )
@@ -59,7 +61,7 @@ class PostPage extends Component {
 
   render() {
 
-    if (this.props.post !== undefined && this.state.comments === null) {
+    if (this.props.post !== undefined && this.state.getComments === true) {
       this.handleGetPostComments(this.props.post)
     }
 
@@ -83,8 +85,8 @@ class PostPage extends Component {
             <Post id={this.props.id} />
             <div>
               <ul className='comments-list'>
-                {this.state.comments && (
-                  this.state.comments.map((comment) => (
+                {this.props.comments && (
+                  this.props.comments.map((comment) => (
                     <li key={comment.id}>
                       <Comment comment={comment} />
                     </li>
@@ -112,7 +114,7 @@ function mapStateToProps({ posts, comments }, props) {
     posts,
     post: Object.values(posts).find(p => p.id === id),
     category,
-    comments,
+    comments: Object.values(comments),
   }
 }
 

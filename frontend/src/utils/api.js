@@ -37,11 +37,27 @@ export function voteOnPost(id, voteValue) {
   }))
 }
 
+export function voteOnComment(id, voteValue) {
+  return Promise.all([
+    sendCommentVoteToServer(id, voteValue)
+  ]).then(([comment]) => ({
+    comment,
+  }))
+}
+
 export function handleDeletePost(postId) {
   return Promise.all([
     markPostAsDeletedOnServer(postId)
   ]).then(([post]) => ({
     post,
+  }))
+}
+
+export function handleDeleteComment(commentId) {
+  return Promise.all([
+    markCommentAsDeletedOnServer(commentId)
+  ]).then(([comment]) => ({
+    comment,
   }))
 }
 
@@ -66,7 +82,7 @@ export function handleGetPostComments(p) {
   return Promise.all([
     getPostCommentsFromServer(p)
   ]).then(([comments]) => ({
-    comments,
+    comments: comments.sort((a, b) => b.voteScore - a.voteScore),
   }))
 }
 
@@ -98,8 +114,16 @@ function sendVoteToServer(id, voteValue) {
   return sendDataToUrl(DATA_SERVER_URL.concat("/posts/").concat(id), 'POST', voteValue)
 }
 
+function sendCommentVoteToServer(id, voteValue) {
+  return sendDataToUrl(DATA_SERVER_URL.concat("/comments/").concat(id), 'POST', voteValue)
+}
+
 function markPostAsDeletedOnServer(id) {
   return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts/").concat(id), 'DELETE').then(post => post.json())
+}
+
+function markCommentAsDeletedOnServer(id) {
+  return fetchDataFromUrl(DATA_SERVER_URL.concat("/comments/").concat(id), 'DELETE').then(comment => comment.json())
 }
 
 function editPostOnServer(p) {

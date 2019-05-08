@@ -1,12 +1,14 @@
-import { getInitialData, getPostDataById, addPost, voteOnPost, handleDeletePost,
-   handleEditPost, handleGetPostsByCategory, handleGetPostComments } from '../utils/api'
+import {
+  getInitialData, getPostDataById, addPost, voteOnPost, handleDeletePost,
+  handleEditPost, handleGetPostsByCategory, handleGetPostComments, voteOnComment, handleDeleteComment
+} from '../utils/api'
 import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
 import {
   receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote,
   downVote, deletePost, editPost, filterByCategory, postsToState
 } from '../actions/posts'
-import { getPostComments } from '../actions/comments'
+import { getPostComments, upVoteComment, downVoteComment, deleteComment } from '../actions/comments'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function getAllInitialData() {
@@ -66,10 +68,31 @@ export function downVoteOnPostAction(id) {
   }
 }
 
+export function upVoteOnCommentAction(id) {
+  return (dispatch) => {
+    return voteOnComment(id, { "option": "upVote" })
+      .then(dispatch(upVoteComment(id)))
+  }
+}
+
+export function downVoteOnCommentAction(id) {
+  return (dispatch) => {
+    return voteOnComment(id, { "option": "downVote" })
+      .then(dispatch(downVoteComment(id)))
+  }
+}
+
 export function deletePostAction(id) {
   return (dispatch) => {
     return handleDeletePost(id)
       .then(dispatch(deletePost(id)))
+  }
+}
+
+export function deleteCommentAction(id) {
+  return (dispatch) => {
+    return handleDeleteComment(id)
+      .then(dispatch(deleteComment(id)))
   }
 }
 
