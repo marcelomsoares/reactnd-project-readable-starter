@@ -77,6 +77,14 @@ export function handleEditPost(post) {
   }))
 }
 
+export function handleEditComment(comment) {
+  return Promise.all([
+    editCommentOnServer(comment)
+  ]).then(([comment]) => ({
+    comment,
+  }))
+}
+
 export function handleGetPostsByCategory(category) {
   return Promise.all([
     getPostsFromServerByCategory(category)
@@ -140,6 +148,10 @@ function markCommentAsDeletedOnServer(id) {
 
 function editPostOnServer(p) {
   return sendDataToUrl(DATA_SERVER_URL.concat("/posts/".concat(p.id)), 'PUT', p)
+}
+
+function editCommentOnServer(c) {
+  return sendDataToUrl(DATA_SERVER_URL.concat("/comments/".concat(c.id)), 'PUT', c)
 }
 
 function fetchDataFromUrl(url, method) {

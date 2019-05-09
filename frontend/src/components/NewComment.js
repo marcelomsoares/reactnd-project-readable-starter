@@ -45,7 +45,6 @@ class NewComment extends Component {
     dispatch(addCommentAction(comment))
       .then(
         (response) => {
-          console.log(response)
           if (response.comment.ok === true) {
             this.setState(() => ({
               body: '',

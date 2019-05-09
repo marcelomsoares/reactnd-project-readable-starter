@@ -4,6 +4,7 @@ import Post from './Post'
 import EditPost from './EditPost'
 import Comment from './Comment'
 import NewComment from './NewComment'
+import PageNotFound from './PageNotFound'
 import { deletePostAction, getPostCommentsAction } from '../actions/shared'
 import { Redirect } from 'react-router-dom'
 
@@ -15,7 +16,6 @@ class PostPage extends Component {
     redirect: false,
     editing: false,
     getComments: true,
-    //comments: null,
   }
 
   handleGetPostComments = () => {
@@ -61,6 +61,12 @@ class PostPage extends Component {
   }
 
   render() {
+
+    if (this.props.post !== undefined && (this.props.category !== this.props.post.category)) {
+      return (
+        <PageNotFound />
+      )
+    }
 
     if (this.props.post !== undefined && this.state.getComments === true) {
       this.handleGetPostComments(this.props.post)

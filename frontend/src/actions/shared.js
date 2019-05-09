@@ -1,7 +1,7 @@
 import {
   getInitialData, getPostDataById, addPost, voteOnPost, handleDeletePost,
   handleEditPost, handleGetPostsByCategory, handleGetPostComments, voteOnComment,
-  handleDeleteComment, handleAddComment
+  handleDeleteComment, handleAddComment, handleEditComment
 } from '../utils/api'
 import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
@@ -9,7 +9,7 @@ import {
   receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote,
   downVote, deletePost, editPost, filterByCategory, postsToState
 } from '../actions/posts'
-import { getPostComments, upVoteComment, downVoteComment, deleteComment, addComment } from '../actions/comments'
+import { getPostComments, upVoteComment, downVoteComment, deleteComment, addComment, editComment } from '../actions/comments'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export function getAllInitialData() {
@@ -112,6 +112,13 @@ export function editPostAction(post) {
   return (dispatch) => {
     return handleEditPost(post)
       .then(dispatch(editPost(post)))
+  }
+}
+
+export function editCommentAction(comment) {
+  return (dispatch) => {
+    return handleEditComment(comment)
+      .then(dispatch(editComment(comment)))
   }
 }
 

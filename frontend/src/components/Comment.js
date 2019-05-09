@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { upVoteOnCommentAction, downVoteOnCommentAction, deleteCommentAction } from '../actions/shared'
 import { FaThumbsUp, FaThumbsDown, FaPencilAlt, FaTrash } from 'react-icons/fa'
+import EditComment from './EditComment'
 
 import '../css/comment.css'
 
@@ -9,6 +10,19 @@ class Comment extends Component {
 
   state = {
     voteScore: this.props.comment !== undefined ? this.props.comment.voteScore : 0,
+    editing: false,
+  }
+
+  handleBeginEdit = () => {
+    this.setState(() => ({
+      editing: true,
+    }))
+  }
+
+  handleEndEdit = () => {
+    this.setState(() => ({
+      editing: false,
+    }))
   }
 
   handleUpVote = (comment) => {
@@ -56,18 +70,23 @@ class Comment extends Component {
     const { dispatch } = this.props
 
     dispatch(deleteCommentAction(commentId))
-      // .then(
-      //   (response) => {
-      //     if (response.comment.deleted === true) {
-      //       alert('Comentário deletado com sucesso')
-      //     }
-      //   }
-      // )
-      // TODO: Tratar caso não seja possivel deletar o comentário
+    // .then(
+    //   (response) => {
+    //     if (response.comment.deleted === true) {
+    //       alert('Comentário deletado com sucesso')
+    //     }
+    //   }
+    // )
+    // TODO: Tratar caso não seja possivel deletar o comentário
   }
 
   render() {
     const data = new Date(this.props.comment.timestamp)
+    if (this.state.editing === true) {
+      return (
+        <EditComment id={this.props.comment.id} handleCancel={this.handleEndEdit} />
+      )
+    }
     return (
       <div className='comment-container'>
         <span className='comment-body'>
@@ -87,7 +106,7 @@ class Comment extends Component {
         </span>
         <span> </span>
         <span title='Editar'>
-          <FaPencilAlt size='14' />
+          <FaPencilAlt onClick={() => this.handleBeginEdit()} size='14' />
         </span>
         <span> </span>
         <span title='Excluir'>

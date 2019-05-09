@@ -1,6 +1,6 @@
 import {
   GET_POST_COMMENTS, UP_VOTE_COMMENT, DOWN_VOTE_COMMENT,
-  ADD_COMMENT, REMOVE_COMMENT
+  ADD_COMMENT, REMOVE_COMMENT, EDIT_COMMENT
 } from '../actions/comments'
 
 export default function comments(state = {}, action) {
@@ -33,6 +33,13 @@ export default function comments(state = {}, action) {
     case REMOVE_COMMENT:
       updatedCommentList = Object.values(state)
       updatedCommentList = updatedCommentList.filter(c => c.id !== action.commentId)
+      return {
+        ...updatedCommentList,
+      }
+    case EDIT_COMMENT:
+      updatedCommentList = Object.values(state)
+      updatedCommentList = updatedCommentList.filter(c => c.id !== action.comment.id)
+      updatedCommentList.push(action.comment)
       return {
         ...updatedCommentList,
       }

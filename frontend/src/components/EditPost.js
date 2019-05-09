@@ -41,10 +41,18 @@ class EditPost extends Component {
 
     const { post, dispatch } = this.props
 
+    const { author, category, timestamp, voteScore, commentCount, deleted } = this.props.post
+
     let editedPost = {
       id: this.props.post.id,
       title,
       body,
+      author,
+      category,
+      timestamp,
+      voteScore,
+      commentCount,
+      deleted,
     }
 
     dispatch(editPostAction(editedPost))

@@ -7,3 +7,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.page-not-found-title {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 28px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.page-container {
+  text-align: center;
+}

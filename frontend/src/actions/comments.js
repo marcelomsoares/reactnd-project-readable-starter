@@ -3,6 +3,7 @@ export const UP_VOTE_COMMENT = 'UP_VOTE_COMMENT'
 export const DOWN_VOTE_COMMENT = 'DOWN_VOTE_COMMENT'
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 
 export function getPostComments(comments) {
   return {
@@ -35,6 +36,13 @@ export function deleteComment(commentId) {
 export function addComment(comment) {
   return {
     type: ADD_COMMENT,
+    comment,
+  }
+}
+
+export function editComment(comment) {
+  return {
+    type: EDIT_COMMENT,
     comment,
   }
 }
