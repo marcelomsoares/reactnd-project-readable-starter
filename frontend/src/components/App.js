@@ -13,9 +13,7 @@ import LoadingBar from 'react-redux-loading'
 class App extends Component {
 
   componentDidMount() {
-    // código mantido para ser possivel acessar um post através da url /:categoria/postId
     this.props.dispatch(getAllInitialData())
-    // TODO: trocar essa chamada por uma chamada da api de busca de post por id
   }
 
   render() {

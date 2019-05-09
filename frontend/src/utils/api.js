@@ -139,7 +139,7 @@ function sendCommentVoteToServer(id, voteValue) {
 }
 
 function markPostAsDeletedOnServer(id) {
-  return fetchDataFromUrl(DATA_SERVER_URL.concat("/posts/").concat(id), 'DELETE').then(post => post.json())
+  return fetchDataFromUrl(DATA_SERVER_URL.concat("/postsaa/").concat(id), 'DELETE').then(post => post.json())
 }
 
 function markCommentAsDeletedOnServer(id) {

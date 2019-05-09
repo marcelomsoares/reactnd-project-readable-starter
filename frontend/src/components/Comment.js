@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { upVoteOnCommentAction, downVoteOnCommentAction, deleteCommentAction } from '../actions/shared'
+import { upVoteOnCommentAction, downVoteOnCommentAction, deleteCommentAction, addCommentAction } from '../actions/shared'
 import { FaThumbsUp, FaThumbsDown, FaPencilAlt, FaTrash } from 'react-icons/fa'
 import EditComment from './EditComment'
 
@@ -70,14 +70,20 @@ class Comment extends Component {
     const { dispatch } = this.props
 
     dispatch(deleteCommentAction(commentId))
-    // .then(
-    //   (response) => {
-    //     if (response.comment.deleted === true) {
-    //       alert('Comentário deletado com sucesso')
-    //     }
-    //   }
-    // )
-    // TODO: Tratar caso não seja possivel deletar o comentário
+      .then(
+        (response) => {
+          console.log('props')
+          console.log(this.props)
+          if (response.comment.deleted === false) {
+            dispatch(addCommentAction(this.props.comment))
+            alert('Ocorreu um erro ao deletar o comentário. Tente novamente mais tarde.')
+          }
+        }
+      )
+      .catch(err => {
+        dispatch(addCommentAction(this.props.comment))
+        alert('Ocorreu um erro ao deletar o comentário. Tente novamente mais tarde.')
+      })
   }
 
   render() {

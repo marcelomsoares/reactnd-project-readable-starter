@@ -5,7 +5,7 @@ import EditPost from './EditPost'
 import Comment from './Comment'
 import NewComment from './NewComment'
 import PageNotFound from './PageNotFound'
-import { deletePostAction, getPostCommentsAction } from '../actions/shared'
+import { deletePostAction, getPostCommentsAction, addPostAction } from '../actions/shared'
 import { Redirect } from 'react-router-dom'
 
 import '../css/post.css'
@@ -34,7 +34,7 @@ class PostPage extends Component {
 
   handlePostDelete = (postId) => {
 
-    const { dispatch } = this.props
+    const { dispatch, post } = this.props
 
     dispatch(deletePostAction(postId))
       .then(
@@ -43,9 +43,16 @@ class PostPage extends Component {
             this.setState(() => ({
               redirect: true,
             }))
+          } else {
+            dispatch(addPostAction(post))
+            alert('Ocorreu um erro ao deletar o post. Tente novamente mais tarde')
           }
         }
       )
+      .catch(err => {
+        dispatch(addPostAction(post))
+        alert('Ocorreu um erro ao deletar o post. Tente novamente mais tarde')
+      })
   }
 
   showEditPostForm = () => {
