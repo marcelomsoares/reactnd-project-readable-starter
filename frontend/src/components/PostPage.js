@@ -83,6 +83,10 @@ class PostPage extends Component {
       return <Redirect to='/' />
     }
 
+    if (this.props.post === undefined) {
+      return <PageNotFound />
+    }
+
     return (
       <div>
         {this.state.editing === false && (
@@ -96,7 +100,7 @@ class PostPage extends Component {
                 Editar Post
               </button>
             </form>
-            <Post id={this.props.id} />
+            <Post post={this.props.post} commentCount={this.props.post.commentCount} />
             <div>
               <NewComment id={this.props.id} />
               <ul className='comments-list'>

@@ -1,10 +1,12 @@
 import {
   RECEIVE_POSTS, GET_POST_BY_ID, ORDER_POSTS_BY_VOTE_SCORE,
   ADD_POST, REMOVE_POST, UP_VOTE, DOWN_VOTE, DELETE_POST,
-  EDIT_POST, FILTER_BY_CATEGORY, POSTS_TO_STATE
+  EDIT_POST, FILTER_BY_CATEGORY, POSTS_TO_STATE,
+  INCREMENT_COMMENT_COUNT, DECREMENT_COMMENT_COUNT
 } from '../actions/posts'
 
 export default function posts(state = {}, action) {
+  let newState = []
   switch (action.type) {
     case RECEIVE_POSTS:
       return {
@@ -22,43 +24,43 @@ export default function posts(state = {}, action) {
         ...action.posts,
       }
     case ADD_POST:
-      let newState = Object.values(state)
+      newState = Object.values(state)
       newState.push(action.post)
       return {
         ...newState
       }
     case REMOVE_POST:
-      let postRemoved = Object.values(state)
-      postRemoved = postRemoved.filter(p => p.id !== action.post.id)
+      newState = Object.values(state)
+      newState = newState.filter(p => p.id !== action.post.id)
       return {
-        ...postRemoved
+        ...newState
       }
     case UP_VOTE:
-      let updatedPostValue = Object.values(state)
-      updatedPostValue.filter((p) => p.id === action.postId)
+      newState = Object.values(state)
+      newState.filter((p) => p.id === action.postId)
         .map((p) => p.voteScore += 1)
       return {
-        ...updatedPostValue,
+        ...newState,
       }
     case DOWN_VOTE:
-      let updatedPostValueDown = Object.values(state)
-      updatedPostValueDown.filter((p) => p.id === action.postId)
+      newState = Object.values(state)
+      newState.filter((p) => p.id === action.postId)
         .map((p) => p.voteScore -= 1)
       return {
-        ...updatedPostValueDown,
+        ...newState,
       }
     case DELETE_POST:
-      let remainingPosts = Object.values(state)
-      remainingPosts = remainingPosts.filter((x) => x.id !== action.postId)
+      newState = Object.values(state)
+      newState = newState.filter((x) => x.id !== action.postId)
       return {
-        ...remainingPosts,
+        ...newState,
       }
     case EDIT_POST:
-      let editedPosts = Object.values(state)
-      editedPosts = editedPosts.filter(p => p.id !== action.post.id)
-      editedPosts.push(action.post)
+      newState = Object.values(state)
+      newState = newState.filter(p => p.id !== action.post.id)
+      newState.push(action.post)
       return {
-        ...editedPosts,
+        ...newState,
       }
     case FILTER_BY_CATEGORY:
       return {
@@ -67,6 +69,18 @@ export default function posts(state = {}, action) {
     case POSTS_TO_STATE:
       return {
         ...action.posts
+      }
+    case INCREMENT_COMMENT_COUNT:
+      newState = Object.values(state)
+      newState.map(p => p.id === action.postId ? p.commentCount += 1 : p.commentCount)
+      return {
+        ...newState
+      }
+    case DECREMENT_COMMENT_COUNT:
+      newState = Object.values(state)
+      newState.map(p => p.id === action.postId ? p.commentCount -= 1 : p.commentCount)
+      return {
+        ...newState
       }
     default:
       return state

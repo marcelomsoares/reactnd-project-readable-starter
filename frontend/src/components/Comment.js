@@ -72,8 +72,6 @@ class Comment extends Component {
     dispatch(deleteCommentAction(commentId))
       .then(
         (response) => {
-          console.log('props')
-          console.log(this.props)
           if (response.comment.deleted === false) {
             dispatch(addCommentAction(this.props.comment))
             alert('Ocorreu um erro ao deletar o comentário. Tente novamente mais tarde.')

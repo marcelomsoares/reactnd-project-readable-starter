@@ -7,7 +7,7 @@ import { receiveCategories } from '../actions/categories'
 import { setAuthorization } from '../actions/authorization'
 import {
   receivePosts, getPostById, handleOrderPostsByVoteScore, handleAddPost, removePost, upVote,
-  downVote, deletePost, editPost, filterByCategory, postsToState
+  downVote, deletePost, editPost, filterByCategory, postsToState, incrementCommentCount, decrementCommentCount
 } from '../actions/posts'
 import { getPostComments, upVoteComment, downVoteComment, deleteComment, addComment, editComment } from '../actions/comments'
 import { showLoading, hideLoading } from 'react-redux-loading'
@@ -134,4 +134,12 @@ export function getPostCommentsAction(p) {
     return handleGetPostComments(p)
       .then((response) => dispatch(getPostComments(response.comments)))
   }
+}
+
+export function incrementCommentCountAction(postId) {
+  return incrementCommentCount(postId)
+}
+
+export function decrementCommentCountAction(postId) {
+  return decrementCommentCount(postId)
 }

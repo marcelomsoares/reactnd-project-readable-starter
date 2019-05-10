@@ -11,6 +11,8 @@ export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const FILTER_BY_CATEGORY = 'FILTER_BY_CATEGORY'
 export const POSTS_TO_STATE = 'POSTS_TO_STATE'
+export const INCREMENT_COMMENT_COUNT = 'INCREMENT_COMMENT_COUNT'
+export const DECREMENT_COMMENT_COUNT = 'DECREMENT_COMMENT_COUNT'
 
 export function receivePosts(posts) {
   return {
@@ -105,5 +107,19 @@ export function filterByCategory(category) {
   return {
     type: FILTER_BY_CATEGORY,
     category,
+  }
+}
+
+export function incrementCommentCount(postId) {
+  return {
+    type: INCREMENT_COMMENT_COUNT,
+    postId,
+  }
+}
+
+export function decrementCommentCount(postId) {
+  return {
+    type: DECREMENT_COMMENT_COUNT,
+    postId,
   }
 }

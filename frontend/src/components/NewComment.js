@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { addCommentAction, removeCommentFromState } from '../actions/shared'
+import { addCommentAction, removeCommentFromState, incrementCommentCountAction } from '../actions/shared'
 import { connect } from 'react-redux'
 
 import '../css/comment.css'
@@ -49,6 +49,7 @@ class NewComment extends Component {
             this.setState(() => ({
               body: '',
             }))
+          dispatch(incrementCommentCountAction(comment.parentId))
           } else {
             dispatch(removeCommentFromState(comment.parentId))
             alert('Ocorreu um erro ao cadastrar o novo comentário. Tente novamente mais tarde.')
