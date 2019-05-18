@@ -53,7 +53,7 @@ class Post extends Component {
   }
 
   render() {
-    const data = new Date(this.props.post.timestamp)
+    const data = typeof this.props.post !== 'undefined' ? new Date(this.props.post.timestamp) : null
     return (
       <div className='post-container'>
         {this.props.post &&
@@ -63,7 +63,7 @@ class Post extends Component {
                 {this.props.post.title}
               </Link>
             </h3>
-            <span className='post-details'>Postado por {this.props.post.author} | às {dateFormater(data)} | {this.props.commentCount} comentários | {this.props.post.voteScore} pontos
+            <span className='post-details'>Postado por {this.props.post.author} | às {dateFormater(data)} | {typeof this.props.commentCount === 'undefined' ? 0 : this.props.commentCount} comentários | {this.props.post.voteScore} pontos
           <span> </span>
               <span title='Votar +1'>
                 <FaThumbsUp onClick={() => this.handleUpVote(this.props.post)} size='14' />

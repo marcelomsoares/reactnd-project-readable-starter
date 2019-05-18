@@ -15,10 +15,10 @@ class Dashboard extends Component {
     return (
       <div className='dashboard-container'>
         <ul className='posts-list'>
-          {this.props.postsIds ?
-            (this.props.postsIds.map((id) => (
-              <li key={id}>
-                <Post id={id} />
+          {this.props.posts ?
+            (this.props.posts.map((post) => (
+              <li key={post.id}>
+                <Post post={post} commentCount={post.commentCount} />
               </li>
             )))
             : null}
@@ -30,7 +30,7 @@ class Dashboard extends Component {
 
 function mapStateToProps({ posts }) {
   return {
-    postsIds: Object.values(posts).map(obj => obj.id)
+    posts: Object.values(posts)
   }
 }
 
