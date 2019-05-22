@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getAllInitialData } from '../actions/shared'
 import Post from './Post'
+import { getValues } from '../utils/myUtils'
 
 import '../css/post.css'
 
@@ -30,7 +31,7 @@ class Dashboard extends Component {
 
 function mapStateToProps({ posts }) {
   return {
-    posts: Object.values(posts)
+    posts: getValues(posts)
   }
 }
 

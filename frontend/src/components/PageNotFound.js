@@ -1,14 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class PageNotFound extends Component {
+var PageNotFound = function PageNotFound(props) {
 
-  render() {
-    return (
-      <div className='page-container'>
-        <h1 className='page-not-found-title'>Página não encontrada!</h1>
-      </div>
-    )
-  }
+  return (
+    <div className='page-container'>
+      <h1 className='page-not-found-title'>Página não encontrada!</h1>
+    </div>
+  )
 
 }
 

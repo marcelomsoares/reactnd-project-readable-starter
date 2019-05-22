@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { editPostAction, addPostAction } from '../actions/shared'
 import { connect } from 'react-redux'
+import { getValues } from '../utils/myUtils'
 
 import '../css/post.css'
 
@@ -100,7 +101,7 @@ class EditPost extends Component {
 }
 
 function mapStateToProps({ posts }, { id, handleCancel }) {
-  const post = Object.values(posts).find(p => p.id === id)
+  const post = getValues(posts).find(p => p.id === id)
   return {
     post,
     handleCancel,

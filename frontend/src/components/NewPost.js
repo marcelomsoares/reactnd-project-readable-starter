@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { addPostAction, removePostFromState } from '../actions/shared'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { getValues } from '../utils/myUtils'
 
 import '../css/post.css'
 
@@ -31,6 +32,13 @@ class NewPost extends Component {
     }))
   }
 
+  handleAuthorChange = (e) => {
+    const author = e.target.value
+
+    this.setState(() => ({
+      author
+    }))
+  }
 
 
   handleSubmit = (e) => {
@@ -40,9 +48,7 @@ class NewPost extends Component {
     const id = uuidv1()
     const timestamp = new Date().getTime()
 
-    const { title, body } = this.state
-
-    const author = this.props.author.authorization
+    const { title, body, author } = this.state
 
     const category = document.getElementById('categoryId').value
 
@@ -80,7 +86,7 @@ class NewPost extends Component {
   }
 
   render() {
-    const { title, body, category, redirect } = this.state
+    const { title, body, author, category, redirect } = this.state
 
     if (redirect === true) {
       return <Redirect to={`/${category}`} />
@@ -106,9 +112,12 @@ class NewPost extends Component {
             )}
           </select>
 
+          <input type='text' value={author} onChange={this.handleAuthorChange}
+            placeholder='Autor' />
+
           <button
             type='submit'
-            disabled={body === '' || title === ''}>
+            disabled={body === '' || title === '' || author === ''}>
             Criar
           </button>
         </form>
@@ -119,7 +128,7 @@ class NewPost extends Component {
 
 function mapStatetoProps({ categories, authorization }) {
   return {
-    categories: Object.values(categories),
+    categories: getValues(categories),
     author: authorization
   }
 }

@@ -1,4 +1,5 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
+import { getValues } from '../utils/myUtils'
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const GET_POST_BY_ID = 'GET_POST_BY_ID'
@@ -30,9 +31,9 @@ export function getPostById(post) {
 
 export function orderPostsByVoteScore(posts, order) {
   if (order === 'ASC') {
-    posts = Object.values(posts).sort((a, b) => a.voteScore - b.voteScore)
+    posts = getValues(posts).sort((a, b) => a.voteScore - b.voteScore)
   } else {
-    posts = Object.values(posts).sort((a, b) => b.voteScore - a.voteScore)
+    posts = getValues(posts).sort((a, b) => b.voteScore - a.voteScore)
   }
   return {
     type: ORDER_POSTS_BY_VOTE_SCORE,

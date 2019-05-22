@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Sorter from './Sorter'
+import { getValues } from '../utils/myUtils'
 
 import '../css/menu.css'
 
@@ -34,7 +35,7 @@ class Menu extends Component {
           </ul>
         </div>
         <div className='sorter-half'>
-          <Sorter />
+          <Sorter props={this.props} />
         </div>
       </div>
     )
@@ -43,7 +44,7 @@ class Menu extends Component {
 
 function mapStatetoProps({ categories }) {
   return {
-    categories: Object.values(categories)
+    categories: getValues(categories),
   }
 }
 

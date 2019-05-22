@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { editCommentAction, addCommentAction } from '../actions/shared'
 import { connect } from 'react-redux'
+import { getValues } from '../utils/myUtils'
 
 import '../css/comment.css'
 
@@ -76,7 +77,7 @@ class EditComment extends Component {
 }
 
 function mapStateToProps({ comments }, { id, handleCancel }) {
-  const comment = Object.values(comments).find(c => c.id === id)
+  const comment = getValues(comments).find(c => c.id === id)
   return {
     comment,
     handleCancel,

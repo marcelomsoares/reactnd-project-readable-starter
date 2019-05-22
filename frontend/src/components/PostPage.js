@@ -7,6 +7,7 @@ import NewComment from './NewComment'
 import PageNotFound from './PageNotFound'
 import { deletePostAction, getPostCommentsAction, addPostAction } from '../actions/shared'
 import { Redirect } from 'react-router-dom'
+import { getValues } from '../utils/myUtils'
 
 import '../css/post.css'
 
@@ -16,6 +17,18 @@ class PostPage extends Component {
     redirect: false,
     editing: false,
     getComments: true,
+  }
+
+  componentDidMount() {
+    if (this.props.post !== undefined && (this.props.category !== this.props.post.category)) {
+      return (
+        <PageNotFound />
+      )
+    }
+
+    if (this.props.post !== undefined && this.state.getComments === true) {
+      this.handleGetPostComments(this.props.post)
+    }
   }
 
   handleGetPostComments = () => {
@@ -69,16 +82,6 @@ class PostPage extends Component {
 
   render() {
 
-    if (this.props.post !== undefined && (this.props.category !== this.props.post.category)) {
-      return (
-        <PageNotFound />
-      )
-    }
-
-    if (this.props.post !== undefined && this.state.getComments === true) {
-      this.handleGetPostComments(this.props.post)
-    }
-
     if (this.state.redirect === true) {
       return <Redirect to='/' />
     }
@@ -131,9 +134,9 @@ function mapStateToProps({ posts, comments }, props) {
   return {
     id,
     posts,
-    post: Object.values(posts).find(p => p.id === id),
+    post: getValues(posts).find(p => p.id === id),
     category,
-    comments: Object.values(comments).sort((a, b) => b.voteScore - a.voteScore),
+    comments: getValues(comments).sort((a, b) => b.voteScore - a.voteScore),
   }
 }
 

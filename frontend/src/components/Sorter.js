@@ -1,28 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { handleOrderPostsByVoteScoreAction } from '../actions/shared'
 import { FaSortNumericUp, FaSortNumericDown } from 'react-icons/fa'
 
-class Sorter extends Component {
-  orderAsc = (e, order) => {
-    e.preventDefault()
-    const { dispatch, posts} = this.props
-    dispatch(handleOrderPostsByVoteScoreAction(posts, order))
-  }
+var Sorter = function Sorter(props) {
+  return (
+    <div>
+      <span>Ordenar por pontuação: </span>
+      <button onClick={(e) => orderAsc(e, 'ASC', props)}>
+        Crescente <FaSortNumericDown />
+      </button>
+      <button onClick={(e) => orderAsc(e, 'DESC', props)}>
+        Decrescente <FaSortNumericUp />
+      </button>
+    </div>
+  )
+}
 
-  render() {
-    return (
-      <div>
-        <span>Ordenar por pontuação: </span>
-        <button onClick={(e) => this.orderAsc(e, 'ASC')}>
-          Crescente <FaSortNumericDown />
-        </button>
-        <button onClick={(e) => this.orderAsc(e, 'DESC')}>
-          Decrescente <FaSortNumericUp />
-        </button>
-      </div>
-    )
-  }
+function orderAsc(e, order, props) {
+  e.preventDefault()
+  const { dispatch, posts } = props
+  dispatch(handleOrderPostsByVoteScoreAction(posts, order))
 }
 
 function mapStateToProps({ posts }) {

@@ -5,8 +5,9 @@ import {
   INCREMENT_COMMENT_COUNT, DECREMENT_COMMENT_COUNT
 } from '../actions/posts'
 
+import { getValues } from '../utils/myUtils'
+
 export default function posts(state = {}, action) {
-  let newState = []
   switch (action.type) {
     case RECEIVE_POSTS:
       return {
@@ -24,63 +25,55 @@ export default function posts(state = {}, action) {
         ...action.posts,
       }
     case ADD_POST:
-      newState = Object.values(state)
-      newState.push(action.post)
+      const newStateAddPost = getValues(state).push(action.post)
       return {
-        ...newState
+        ...newStateAddPost
       }
     case REMOVE_POST:
-      newState = Object.values(state)
-      newState = newState.filter(p => p.id !== action.post.id)
+      const newStateRemovePost = getValues(state).filter(p => p.id !== action.post.id)
       return {
-        ...newState
+        ...newStateRemovePost
       }
     case UP_VOTE:
-      newState = Object.values(state)
-      newState.filter((p) => p.id === action.postId)
+      const newStateUpVote = getValues(state).filter((p) => p.id === action.postId)
         .map((p) => p.voteScore += 1)
       return {
-        ...newState,
+        ...newStateUpVote,
       }
     case DOWN_VOTE:
-      newState = Object.values(state)
-      newState.filter((p) => p.id === action.postId)
+      const newStateDownVote = getValues(state).filter((p) => p.id === action.postId)
         .map((p) => p.voteScore -= 1)
       return {
-        ...newState,
+        ...newStateDownVote,
       }
     case DELETE_POST:
-      newState = Object.values(state)
-      newState = newState.filter((x) => x.id !== action.postId)
+      const newStateDeletePost = getValues(state).filter((x) => x.id !== action.postId)
       return {
-        ...newState,
+        ...newStateDeletePost,
       }
     case EDIT_POST:
-      newState = Object.values(state)
-      newState = newState.filter(p => p.id !== action.post.id)
-      newState.push(action.post)
+      const newStateEditPost = getValues(state).filter(p => p.id !== action.post.id).push(action.post)
       return {
-        ...newState,
+        ...newStateEditPost,
       }
     case FILTER_BY_CATEGORY:
+      const newStateFilterByCategory = getValues(state).filter(p => p.category !== action.category)
       return {
-        ...state,
+        ...newStateFilterByCategory,
       }
     case POSTS_TO_STATE:
       return {
         ...action.posts
       }
     case INCREMENT_COMMENT_COUNT:
-      newState = Object.values(state)
-      newState.map(p => p.id === action.postId ? p.commentCount += 1 : p.commentCount)
+      const newStateIncrementCommentCount = getValues(state).map(p => p.id === action.postId ? p.commentCount += 1 : p.commentCount)
       return {
-        ...newState
+        ...newStateIncrementCommentCount
       }
     case DECREMENT_COMMENT_COUNT:
-      newState = Object.values(state)
-      newState.map(p => p.id === action.postId ? p.commentCount -= 1 : p.commentCount)
+      const newStateDecrementCommentCount = getValues(state).map(p => p.id === action.postId ? p.commentCount -= 1 : p.commentCount)
       return {
-        ...newState
+        ...newStateDecrementCommentCount
       }
     default:
       return state
